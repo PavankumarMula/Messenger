@@ -22,12 +22,17 @@
 .formCard label{
     font-size: 20px;
     margin: 10px;
+    font-family: 'Barlow', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .formCard input{
     height: 25px;
     width: 80%;
-    font-family: monospace;
-    font-size: large;
+    font-size: medium;
+    font-family: 'Barlow', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .formCard button{
@@ -35,8 +40,23 @@
     margin-top: 20px;
     border-radius: 5px;
     height: 30px;
-    font-family: monospace;
-    font-size: large;
+    font-family: 'Barlow', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    background-color: black;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.toggle{
+    width: max-content;
+    border-radius: 5px;
+    height: 30px;
+    font-family: 'Barlow', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
     background-color: black;
     color: whitesmoke;
     cursor: pointer;

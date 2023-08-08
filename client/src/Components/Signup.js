@@ -1,33 +1,57 @@
 import React, { useState } from "react";
 import styles from "../styles/signup.module.css";
+import axios from 'axios'
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [haveAccount, setHaveAccount] = useState(false);
 
   // form handler
-  const formHandler = (e) => {
+  const formHandler = async (e) => {
     e.preventDefault();
-    console.log(name, mail, password, phone);
+    const data ={name,mail,password,phone}
+    // if the user has no account
+    if(haveAccount===true){
+      console.log(`user has an account`)
+    }
+    
+    // if the user has an account
+    else{
+     const res=await axios.post(`http://localhost:4000/signup`,data);
+     console.log(res);
+    }
+
+
+
     setName("");
     setMail("");
     setPassword("");
     setPhone("");
   };
 
+  // this handler toggles b/w have an account and not having account
+  const toggleHandler = () => {
+    setHaveAccount((prev) => !prev);
+  };
+
   return (
     <>
       <div className={styles.container}>
         <form onSubmit={formHandler} className={styles.formCard}>
-
-          <label>Name</label>
-          <input
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          ></input>
+          {haveAccount === false && (
+            <>
+              {" "}
+              <label>Name</label>
+              <input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+              ></input>
+            </>
+          )}
 
           <label>Email</label>
           <input
@@ -36,12 +60,17 @@ const Signup = () => {
             value={mail}
           ></input>
 
-          <label>Phone</label>
-          <input
-            type="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          ></input>
+          {haveAccount === false && (
+            <>
+              {" "}
+              <label>Phone</label>
+              <input
+                type="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              ></input>
+            </>
+          )}
 
           <label>Password</label>
           <input
@@ -49,10 +78,12 @@ const Signup = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           ></input>
-          
-          <button>Submit</button>
-          <button>Have An Account?</button>
+
+          <button>{haveAccount ? "Login" : "Signup"}</button>
         </form>
+        <button className={styles.toggle} onClick={toggleHandler}>
+          {haveAccount ? "New User?" : "Have An Account"}
+        </button>
       </div>
     </>
   );
