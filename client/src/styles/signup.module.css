@@ -4,7 +4,7 @@
         margin: auto;
         margin-top: 80px;
         align-items: center;
-        height: 60vh;
+        height: 70vh;
         width: 25%;
         box-shadow: 2px 4px 18px black;
         border-radius: 10px;
@@ -31,7 +31,7 @@
 }
 
 .formCard button{
-    width: 50%;
+    width: max-content;
     margin-top: 20px;
     border-radius: 5px;
     height: 30px;
