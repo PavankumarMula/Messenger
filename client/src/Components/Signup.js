@@ -15,7 +15,14 @@ const Signup = () => {
     const data = { name, mail, password, phone };
     // if the user has already an  account
     if (haveAccount === true) {
-      console.log(`user has an account`);
+      try {
+        const res=await axios.post(`http://localhost:4000/login`,{mail,password});
+        const {message,name,token}=res.data;
+        alert(message);
+      } 
+      catch (error) {
+        console.log(error);
+      }
     }
 
     // if the user has NO account
