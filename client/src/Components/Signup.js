@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/signup.module.css";
 import axios from "axios";
 import ToastNotification from "../styles/toast";
+
 import { toast } from "react-toastify";
 
 
@@ -22,6 +23,7 @@ const Signup = () => {
           mail,
           password,
         });
+         // eslint-disable-next-line
         const { message, name, token } = res.data;
         toast.success(message);
       } catch (error) {

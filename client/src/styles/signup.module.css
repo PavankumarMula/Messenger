@@ -33,6 +33,10 @@
     font-family: 'Barlow', sans-serif;
     font-family: 'Poppins', sans-serif;
     font-family: 'Roboto', sans-serif;
+    background-color: #ECE5DD;
+    color: black;
+    border-radius: 10px;
+    outline:none;
 }
 
 .formCard button{
@@ -44,8 +48,9 @@
     font-family: 'Poppins', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-size: medium;
-    background-color: black;
-    color: whitesmoke;
+    background-color: #ECE5DD;
+    color: black;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -57,8 +62,9 @@
     font-family: 'Poppins', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-size: medium;
-    background-color: black;
-    color: whitesmoke;
+    background-color: #ECE5DD;
+    color: black;
+    border-radius: 5px;
     cursor: pointer;
 }
 
