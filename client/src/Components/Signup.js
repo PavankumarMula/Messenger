@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styles from "../styles/signup.module.css";
 import axios from "axios";
+import ToastNotification from "../styles/toast";
+import { toast } from "react-toastify";
+
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -9,29 +12,31 @@ const Signup = () => {
   const [phone, setPhone] = useState("");
   const [haveAccount, setHaveAccount] = useState(false);
 
-  // form handler
   const formHandler = async (e) => {
     e.preventDefault();
     const data = { name, mail, password, phone };
-    // if the user has already an  account
-    if (haveAccount === true) {
-      try {
-        const res=await axios.post(`http://localhost:4000/login`,{mail,password});
-        const {message,name,token}=res.data;
-        alert(message);
-      } 
-      catch (error) {
-        console.log(error);
-      }
-    }
 
-    // if the user has NO account
-    else {
+    if (haveAccount) {
+      try {
+        const res = await axios.post(`http://localhost:4000/login`, {
+          mail,
+          password,
+        });
+        const { message, name, token } = res.data;
+        toast.success(message);
+      } catch (error) {
+        toast.error(error.response.data.error);
+      }
+    } else {
       try {
         const res = await axios.post(`http://localhost:4000/signup`, data);
-        alert(res.data);
+        if(res.status===200){
+          toast.success(res.data);
+          setHaveAccount(true);
+        }
+
       } catch (error) {
-        alert(error.response.data);
+        toast.error(error.response.data);
       }
     }
 
@@ -41,7 +46,6 @@ const Signup = () => {
     setPhone("");
   };
 
-  // this handler toggles b/w have an account and not having account
   const toggleHandler = () => {
     setHaveAccount((prev) => !prev);
   };
@@ -50,15 +54,14 @@ const Signup = () => {
     <>
       <div className={styles.container}>
         <form onSubmit={formHandler} className={styles.formCard}>
-          {haveAccount === false && (
+          {!haveAccount && (
             <>
-              {" "}
               <label>Name</label>
               <input
                 type="text"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-              ></input>
+              />
             </>
           )}
 
@@ -67,17 +70,16 @@ const Signup = () => {
             type="email"
             onChange={(e) => setMail(e.target.value)}
             value={mail}
-          ></input>
+          />
 
-          {haveAccount === false && (
+          {!haveAccount && (
             <>
-              {" "}
               <label>Phone</label>
               <input
                 type="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-              ></input>
+              />
             </>
           )}
 
@@ -86,7 +88,7 @@ const Signup = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-          ></input>
+          />
 
           <button>{haveAccount ? "Login" : "Signup"}</button>
         </form>
@@ -94,6 +96,7 @@ const Signup = () => {
           {haveAccount ? "New User?" : "Have An Account"}
         </button>
       </div>
+      <ToastNotification />
     </>
   );
 };

@@ -18,7 +18,7 @@ exports.signupUser = async (req, res) => {
 
     if (isMailPresent) {
       t.rollback();
-      return res.status(200).json("mail already exists");
+      return res.status(401).json("email already exist");
     } else {
       //bcrypt the password before commiting into db
       const salt = await bcrypt.genSalt(10);
@@ -71,9 +71,11 @@ exports.loginUser = async (req, res) => {
         return res
           .status(200)
           .json({ message: "you logged in", name: user.name, token });
-      } else {
-        return res.status(200).json("password is incorrect");
+      } 
+      else {
+        return res.status(401).json({ error: "Incorrect password" });
       }
+      
     } else {
       return res.status(200).json("mail does not exist");
     }
