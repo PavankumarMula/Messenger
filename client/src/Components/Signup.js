@@ -5,9 +5,7 @@ import ToastNotification from "../styles/toast";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { userAuth } from "../context/userAuth";
-import {useNavigate} from 'react-router-dom'
-
-
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -17,11 +15,10 @@ const Signup = () => {
   const [haveAccount, setHaveAccount] = useState(false);
 
   // getting user Context
-  const userAuthCtx=useContext(userAuth);
+  const userAuthCtx = useContext(userAuth);
 
   // navigate from react router
-  const navigate= useNavigate();
-  
+  const navigate = useNavigate();
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -35,21 +32,20 @@ const Signup = () => {
         });
         const { message, name, token } = res.data;
         console.log(name);
-        localStorage.setItem('token',token);
+        localStorage.setItem("token", token);
         userAuthCtx.getLoginUser(name);
         toast.success(message);
-        navigate('/home');
+        navigate("/home");
       } catch (error) {
         toast.error(error.response.data.error);
       }
     } else {
       try {
         const res = await axios.post(`http://localhost:4000/signup`, data);
-        if(res.status===200){
+        if (res.status === 200) {
           toast.success(res.data);
           setHaveAccount(true);
         }
-
       } catch (error) {
         toast.error(error.response.data);
       }

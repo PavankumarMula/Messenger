@@ -7,15 +7,15 @@ import ChatWindow from './Components/ChatWindow';
 import { userAuth } from './context/userAuth';
 import { useContext } from 'react';
 
+
 const App = () => {
   const {isUserLoggedIn}=useContext(userAuth);
-  console.log(isUserLoggedIn);
   return (
     <>
     <NavBar/>
    <Routes>
     <Route exact path='/' element={<Signup/>}></Route>
-    <Route exact path='/home' element={<ChatWindow/>}></Route>
+    {isUserLoggedIn && <Route exact path='/home' element={<ChatWindow/>}></Route>}
     <Route exact path='/register' element={<Signup/>}></Route>
    </Routes>
     </>

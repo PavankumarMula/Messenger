@@ -71,11 +71,9 @@ exports.loginUser = async (req, res) => {
         return res
           .status(200)
           .json({ message: "you logged in", name: user.name, token });
-      } 
-      else {
+      } else {
         return res.status(401).json({ error: "Incorrect password" });
       }
-      
     } else {
       return res.status(200).json("mail does not exist");
     }

@@ -8,6 +8,7 @@
     width: 60%;
     margin: auto;
     box-shadow: 2px 4px 8px black;
+    padding-bottom: 200px;
 }
 
 .chatContainer p{
@@ -15,7 +16,6 @@
     width: 60%;
     text-align: center;
     padding: 5px;
-    
 
 }
 .chatContainer p:nth-child(odd){

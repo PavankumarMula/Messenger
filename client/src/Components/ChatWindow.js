@@ -1,41 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "../styles/chatwindow.module.css";
 import axios from "axios";
+import { messagesCtx } from "../context/messagesContext";
+import { useContext } from "react";
 
 const ChatWindow = () => {
   const [typedmsg, setTypedMsg] = useState("");
 
+  // context work
+  const { messages, userName, fetchMsgsfromDb } = useContext(messagesCtx);
+
+  // fetching the all messages from data base
+  useEffect(() => {}, []);
+
   // sending the user typed message in the backend
   const sendMessagesToServer = async () => {
-    const token=localStorage.getItem('token');
-    if(token){
-     const res= await axios.post(`http://localhost:4000/sendMsg`,{
-       message:typedmsg
-      },
-      {
-        headers:{Authorization:token}
-      })
+    const token = localStorage.getItem("token");
+    if (token) {
+      const res = await axios.post(
+        `http://localhost:4000/sendMsg`,
+        {
+          message: typedmsg,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
 
-      console.log(res);
+      if (res.status === 200) {
+        fetchMsgsfromDb();
+      }
     }
 
-   setTypedMsg("");
-
+    setTypedMsg("");
   };
-
 
   return (
     <>
       <div className={Styles.chatContainer}>
         <h2>Chat App</h2>
-        <p>Vaibhav:hello</p>
-        <p>You joined</p>
-        <p>Yash:Hello Folks How Are you</p>
-        <p>Vaibhav:hello</p>
-        <p>You joined</p>
-        <p>Yash:Hello Folks How Are you</p>
-        <p>Vaibhav:hello</p>
-        <p>Yash:Hello Folks How Are you</p>
+        {messages.length > 0 &&
+          messages.map((obj) => {
+            return (
+              <p>
+                {obj.userName} : {obj.message}
+              </p>
+            );
+          })}
         <div className={Styles.message}>
           <input
             placeholder="type here"
