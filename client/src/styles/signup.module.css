@@ -27,7 +27,7 @@
     font-family: 'Roboto', sans-serif;
 }
 .formCard input{
-    height: 25px;
+    height: 30px;
     width: 80%;
     font-size: medium;
     font-family: 'Barlow', sans-serif;
@@ -35,8 +35,9 @@
     font-family: 'Roboto', sans-serif;
     background-color: #ECE5DD;
     color: black;
-    border-radius: 10px;
+    border-radius: 5px;
     outline:none;
+    
 }
 
 .formCard button{

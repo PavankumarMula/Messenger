@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import styles from "../styles/signup.module.css";
 import axios from "axios";
 import ToastNotification from "../styles/toast";
-
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { userAuth } from "../context/userAuth";
+import {useNavigate} from 'react-router-dom'
+
 
 
 const Signup = () => {
@@ -12,6 +15,13 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [haveAccount, setHaveAccount] = useState(false);
+
+  // getting user Context
+  const userAuthCtx=useContext(userAuth);
+
+  // navigate from react router
+  const navigate= useNavigate();
+  
 
   const formHandler = async (e) => {
     e.preventDefault();
@@ -23,9 +33,12 @@ const Signup = () => {
           mail,
           password,
         });
-         // eslint-disable-next-line
         const { message, name, token } = res.data;
+        console.log(name);
+        localStorage.setItem('token',token);
+        userAuthCtx.getLoginUser(name);
         toast.success(message);
+        navigate('/home');
       } catch (error) {
         toast.error(error.response.data.error);
       }

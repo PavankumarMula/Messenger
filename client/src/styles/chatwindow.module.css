@@ -4,16 +4,25 @@
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
+    height: fit-content;
+    width: 60%;
+    margin: auto;
+    box-shadow: 2px 4px 8px black;
 }
 
 .chatContainer p{
     height: fit-content;
     width: 60%;
     text-align: center;
+    padding: 5px;
+    
+
 }
 .chatContainer p:nth-child(odd){
     background-color:#A9A9A9;
     height: max-content;
+    margin: 4px 0;
+    text-align: center;
 }
 
 .message {

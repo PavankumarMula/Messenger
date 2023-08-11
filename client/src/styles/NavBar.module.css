@@ -24,3 +24,13 @@ a:hover{
 a:active{
     color:black
 }
+
+.logout{
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    font-family: 'Barlow', sans-serif;
+    height: 30px;
+    width: 70px;
+    border-radius: 5px;
+}
