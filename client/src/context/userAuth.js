@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // creating context
 export const userAuth = React.createContext();
@@ -6,6 +6,8 @@ export const userAuth = React.createContext();
 const UserAuthProvider = ({ children }) => {
   const isUserLoggedIn = localStorage.getItem("token") !== null;
   const [userName, setUserName] = useState("");
+
+  
 
   // once the user logged in get his name
   const getLoginUser = (name) => {

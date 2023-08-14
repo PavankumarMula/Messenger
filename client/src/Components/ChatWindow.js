@@ -42,7 +42,7 @@ const ChatWindow = () => {
         {messages.length > 0 &&
           messages.map((obj) => {
             return (
-              <p>
+              <p key={obj.id}>
                 {obj.userName} : {obj.message}
               </p>
             );
