@@ -11,18 +11,21 @@ const MessageCtxProvider = ({ children }) => {
   const { isUserLoggedIn, userName } = useContext(userAuth);
 
   useEffect(() => {
-    if (isUserLoggedIn === true) {
-      fetchMsgsfromDb();
-    } else {
+    if(isUserLoggedIn){
+      const msgs=localStorage.getItem('messages');
+      setMessages(JSON.parse(msgs));
+    }else{
       setMessages([]);
     }
   }, [isUserLoggedIn]);
 
   const fetchMsgsfromDb = async () => {
+    console.log("fetching messages from backend")
     try {
       const res = await axios.get(`http://localhost:4000/getAllMsgs`);
       if (res.status === 200) {
         setMessages(res.data);
+        localStorage.setItem('messages',JSON.stringify(res.data));
       }
     } catch (error) {
       console.log(error);

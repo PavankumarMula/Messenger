@@ -18,6 +18,7 @@ const UserAuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setUserName("");
+    localStorage.removeItem('messages');
   };
 
   const authCtxValue = {
