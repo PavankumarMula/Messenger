@@ -1,0 +1,8 @@
+.bar{
+    display: flex;
+    width:20%;
+    height: 100vh;
+    border: 1px solid black;
+    flex-direction: column;
+    margin-right: 10px;
+}

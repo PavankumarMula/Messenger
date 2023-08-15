@@ -3,15 +3,14 @@ import Styles from "../styles/chatwindow.module.css";
 import axios from "axios";
 import { messagesCtx } from "../context/messagesContext";
 import { useContext } from "react";
+import GroupsBar from "./GroupsBar";
 
 const ChatWindow = () => {
   const [typedmsg, setTypedMsg] = useState("");
 
   // context work
   const { messages, userName, fetchMsgsfromDb } = useContext(messagesCtx);
-
-  // fetching the all messages from data base
-  useEffect(() => {}, []);
+  
 
   // sending the user typed message in the backend
   const sendMessagesToServer = async () => {
@@ -37,6 +36,8 @@ const ChatWindow = () => {
 
   return (
     <>
+    <div style={{display:'flex'}}>
+      <GroupsBar/>
       <div className={Styles.chatContainer}>
         <h2>Chat App</h2>
         {messages.length > 0 &&
@@ -55,6 +56,7 @@ const ChatWindow = () => {
           ></input>
           <button onClick={sendMessagesToServer}>send</button>
         </div>
+      </div>
       </div>
     </>
   );

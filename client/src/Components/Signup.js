@@ -33,6 +33,7 @@ const Signup = () => {
         const { message, name, token } = res.data;
         console.log(name);
         localStorage.setItem("token", token);
+        localStorage.setItem('name',name)
         userAuthCtx.getLoginUser(name);
         toast.success(message);
         navigate("/home");

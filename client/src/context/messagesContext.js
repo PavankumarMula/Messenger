@@ -8,16 +8,22 @@ export const messagesCtx = React.createContext();
 
 const MessageCtxProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
+  const [allUsers,setAllUsers]=useState([]);
+
   const { isUserLoggedIn, userName } = useContext(userAuth);
 
   useEffect(() => {
     if(isUserLoggedIn){
       const msgs=localStorage.getItem('messages');
-      setMessages(JSON.parse(msgs));
+      if(msgs){
+        setMessages(JSON.parse(msgs));
+      }else setMessages([]);
     }else{
       setMessages([]);
     }
   }, [isUserLoggedIn]);
+
+ 
 
   const fetchMsgsfromDb = async () => {
     console.log("fetching messages from backend")

@@ -6,8 +6,8 @@ import { useContext } from "react";
 
 const NavBar = () => {
   // destructuring the logout function from userAuth Context
-  const { logout,userName } = useContext(userAuth);
-  console.log(userName)
+  const { logout } = useContext(userAuth);
+
   const navigate = useNavigate();
 
   // function for logging out
