@@ -1,0 +1,93 @@
+.chatpageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  height: 60vh; /* Example: Limit the height to 80% of the viewport */
+  margin: auto;
+  overflow-y: auto;
+}
+
+
+
+.chatpageContainer p{
+    height: fit-content;
+    background-color:rgb(34, 148, 30);
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+}
+.chatpageContainer  p:nth-child(odd){
+    background-color:#0a0a0a;
+    height: max-content;
+    margin: 4px 0;
+    text-align: center;
+    color: whitesmoke;
+}
+.message {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color:#075E54; /* Subtle background color */
+    padding: 8px;
+  }
+
+.message input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #075E54;
+    color:whitesmoke;
+    outline: none;
+    width: 70%;
+  }
+
+  .message form {
+    width: 80%;
+  }
+  
+  .message button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 150px;
+    font-family: 'Poppins', sans-serif;
+    font-size: large;
+    position: absolute;
+    right: 10px;
+  }
+
+  .name{
+   color: red;
+   margin-right: 15px;
+  }
+/* 
+  .admin{
+    width: 100%;
+    display: flex;
+    background-color: #ECE5DD;
+    height: max-content;
+    color: black;
+    justify-content: flex-start;
+    font-family: 'Poppins', sans-serif;
+  } */
+  .name {
+    color: red;
+    margin-right: 15px;
+  }
+  
+  .messageContainer {
+    display: flex;
+    align-items: center;
+  }
+  

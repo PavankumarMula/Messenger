@@ -8,9 +8,11 @@
     width: 80%;
     margin: auto;
     box-shadow: 2px 4px 8px black;
-    height: 100vh;
+   
     /* margin-right: 350px; */
     border: 1px solid black;
+    overflow-y: auto; /* Enable vertical scrolling when content overflows */
+   height: 100vh;
 }
 
 .chatContainer p{
@@ -18,7 +20,7 @@
     width: 60%;
     text-align: center;
     padding: 5px;
-
+   
 }
 .chatContainer p:nth-child(odd){
     background-color:#A9A9A9;

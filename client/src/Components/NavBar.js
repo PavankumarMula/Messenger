@@ -23,6 +23,7 @@ const NavBar = () => {
           <NavLink to="/home">Home</NavLink>
           <NavLink to="/register">Register</NavLink>
         </div>
+        <h4>{localStorage.getItem('name')}</h4>
         <button className={navStyles.logout} onClick={logoutHandler}>
           Logout
         </button>

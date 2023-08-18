@@ -35,3 +35,10 @@ a:active{
     border-radius: 5px;
 }
 
+.header h4{
+    font-size: large;
+    font-family: 'Barlow', sans-serif;
+    position: absolute;
+    right: 150px;
+}
+

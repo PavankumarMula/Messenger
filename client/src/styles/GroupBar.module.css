@@ -6,3 +6,20 @@
     flex-direction: column;
     margin-right: 10px;
 }
+.bar button{
+    height:50px;
+    background-color: red;
+}
+.groups button
+{
+    display: flex;
+    border: 1px solid;
+    background-color: black;
+    text-align: center;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    color: whitesmoke;
+    cursor: pointer;
+}

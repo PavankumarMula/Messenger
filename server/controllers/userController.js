@@ -37,6 +37,7 @@ exports.signupUser = async (req, res) => {
     t.commit();
     return res.status(200).json("user Added Sucessfully");
   } catch (error) {
+    console.log(error)
     t.rollback();
     return res.status(500).json("internal error");
   }
@@ -53,7 +54,7 @@ const generateJwt = (id, name) => {
 // function for LOGIN
 exports.loginUser = async (req, res) => {
   const { mail, password } = req.body;
-  console.log(mail);
+ 
   try {
     // check if mail is present or not
     const allMails = await userModel.findAll({ attributes: ["email"] });

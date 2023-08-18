@@ -8,20 +8,16 @@ export const messagesCtx = React.createContext();
 
 const MessageCtxProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
-  const [allUsers,setAllUsers]=useState([]);
+ 
 
   const { isUserLoggedIn, userName } = useContext(userAuth);
 
   useEffect(() => {
-    if(isUserLoggedIn){
-      const msgs=localStorage.getItem('messages');
-      if(msgs){
-        setMessages(JSON.parse(msgs));
-      }else setMessages([]);
-    }else{
-      setMessages([]);
-    }
-  }, [isUserLoggedIn]);
+   const token=localStorage.getItem('token')
+   if(token){
+    fetchMsgsfromDb();
+   }
+  }, []);
 
  
 
@@ -31,7 +27,7 @@ const MessageCtxProvider = ({ children }) => {
       const res = await axios.get(`http://localhost:4000/getAllMsgs`);
       if (res.status === 200) {
         setMessages(res.data);
-        localStorage.setItem('messages',JSON.stringify(res.data));
+        console.log(res.data);
       }
     } catch (error) {
       console.log(error);

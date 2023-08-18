@@ -22,7 +22,7 @@ exports.storeMessagesinDb = async (req, res) => {
 // function for getting all the mesages
 exports.getAllMsgs = async (req, res) => {
   try {
-    const allMessages = await chatModel.findAll();
+    const allMessages = await chatModel.findAll({limit:10});
 
     // sending onlu necessary details to the front end
     const allChats = allMessages.map((obj) => {

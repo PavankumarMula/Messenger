@@ -1,29 +1,56 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/GroupBar.module.css";
 import "../styles/Modal.css";
-import Modal from './Modal';
-import { messagesCtx } from "../context/messagesContext";
-import { useContext } from "react";
-import { MultiSelect } from "react-multi-select-component"; 
+import Modal from "./Modal";
+import { MultiSelect } from "react-multi-select-component";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const GroupsBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [groupName, setGroupName] = useState("");
-  const { messages } = useContext(messagesCtx);
   const [users, setUsers] = useState([]);
-  const [selected, setSelected] = useState([]); 
+  const [selected, setSelected] = useState([]);
+  const [groups, setGroups] = useState([]);
 
+  const navigate=useNavigate();
+
+  // for fetching the All the users
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       const fetchUsers = async () => {
         const res = await axios.get(`http://localhost:4000/allusers`);
-        if (res.status === 200) setUsers(res.data);
-      }
+        if (res.status === 200) {
+          setUsers(res.data);
+          localStorage.setItem('users',JSON.stringify(res.data));
+        }
+        
+      };
       fetchUsers();
     }
   }, []);
+
+  // for fetching the all the groups
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // create a function to fetch the all the groups
+      const fetchGroups = async () => {
+        try {
+          const res = await axios.get(`http://localhost:4000/groupNames`, {
+            headers: { Authorization: token },
+          });
+          if (res.status === 200) {
+            setGroups(res.data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchGroups();
+    }
+  }, [groups]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -33,21 +60,20 @@ const GroupsBar = () => {
     setModalOpen(false);
   };
 
-  const formHandler = async(e) => {
-    const name=localStorage.getItem('name');
-    
+  const formHandler = async (e) => {
+    const name = localStorage.getItem("name");
+
     e.preventDefault();
-    const groupDetails={groupName,selected,name}
+    const groupDetails = { groupName, selected, name };
     try {
-     const res= await axios.post(`http://localhost:4000/creategroup`,groupDetails);  
-     console.log(res);
-    } 
-    
-    catch (error) {
+      const res = await axios.post(
+        `http://localhost:4000/creategroup`,
+        groupDetails
+      );
+      console.log(res);
+    } catch (error) {
       console.log(error);
     }
-
-   
 
     closeModal();
   };
@@ -56,6 +82,13 @@ const GroupsBar = () => {
     value: user.id,
     label: user.name,
   }));
+
+
+  // group Page handler
+  const groupPageHandler = (groupId) => {
+   
+    navigate(`grouppage/${groupId}`);
+  };
 
   return (
     <>
@@ -89,6 +122,20 @@ const GroupsBar = () => {
             </form>
           </div>
         </Modal>
+
+        <div className={styles.groups}>
+          {groups &&
+            groups.map((group) => {
+              return (
+                <button
+                  key={group.groupId}
+                  onClick={() => groupPageHandler(group.groupId)}
+                >
+                  {group.groupName}
+                </button>
+              );
+            })}
+        </div>
       </div>
     </>
   );
