@@ -4,6 +4,10 @@ import { useParams } from "react-router-dom";
 import styles from "../styles/chatPage.module.css";
 import Modal from "./Modal";
 import { MultiSelect } from "react-multi-select-component";
+import io from "socket.io-client"; 
+
+const ENDPOINT = "http://localhost:8000"; // Update this to your server URL
+let socket;
 
 const GroupPage = () => {
   const { id } = useParams();
@@ -17,6 +21,8 @@ const GroupPage = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [options, setOptions] = useState([]);
   const [addMode, setAddMode] = useState(false);
+
+  
 
   useEffect(() => {
     // Fetch group details based on ID
@@ -40,7 +46,26 @@ const GroupPage = () => {
     if (token) {
       fetchGroupDetails();
     }
-  }, [id]);
+  }, []);
+
+  // Effect to listen for new messages from the server
+  useEffect(() => {
+    socket = io(ENDPOINT);
+
+    // Listen for new messages from the server
+    socket.on("messageReceived", ({ id, userName, message }) => {
+      console.log("Received new message on client:", { id, userName, message });
+
+      // Update messages state
+      setMessages((prevMessages) => [...prevMessages, { id, userName, message }]);
+    });
+
+    // Clean up the socket connection when component unmounts
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -54,7 +79,11 @@ const GroupPage = () => {
   const fetchGroupChats = async () => {
     try {
       const res = await axios.get(`http://localhost:4000/getGroupChats/${id}`);
-      if (res.status === 200) setMessages(res.data);
+      if (res.status === 200)
+      {
+       
+        setMessages(res.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +106,10 @@ const GroupPage = () => {
         if (res.status === 200) {
           const { id, userName, message } = res.data;
           setMessages((prev) => [...prev, { id, userName, message }]);
-          setInput("");
+
+            // Emit the new message to the server using Socket.io
+              socket.emit("newMessage", { id, userName, message });
+             setInput("");
           
         }
         console.log(res);

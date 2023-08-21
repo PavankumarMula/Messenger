@@ -50,7 +50,7 @@ const GroupsBar = () => {
       };
       fetchGroups();
     }
-  }, [groups]);
+  }, []);
 
   const openModal = () => {
     setModalOpen(true);

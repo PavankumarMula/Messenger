@@ -15,7 +15,7 @@ const MessageCtxProvider = ({ children }) => {
   useEffect(() => {
    const token=localStorage.getItem('token')
    if(token){
-    fetchMsgsfromDb();
+    fetchMsgsfromDb()
    }
   }, []);
 

@@ -141,7 +141,9 @@ exports.postMsgInGroup = async (req, res) => {
     });
 
     const { id, message, userName } = storeMsg;
-    console.log("store message is", storeMsg);
+    
+   
+
     return res.status(200).json({ id, userName, message });
   } catch (error) {
     console.error(error);

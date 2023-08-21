@@ -4,15 +4,15 @@
     /* justify-content: center; */
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    height: fit-content;
     width: 80%;
-    margin: auto;
-    box-shadow: 2px 4px 8px black;
    
+    box-shadow: 2px 4px 8px black;
+    margin-top: 40px;
     /* margin-right: 350px; */
-    border: 1px solid black;
+   
     overflow-y: auto; /* Enable vertical scrolling when content overflows */
-   height: 100vh;
+    height: 80vh;
+    
 }
 
 .chatContainer p{
