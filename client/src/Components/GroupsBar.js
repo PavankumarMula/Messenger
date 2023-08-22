@@ -42,6 +42,7 @@ const GroupsBar = () => {
             headers: { Authorization: token },
           });
           if (res.status === 200) {
+            console.log(res.data)
             setGroups(res.data);
           }
         } catch (error) {
@@ -70,7 +71,8 @@ const GroupsBar = () => {
         `http://localhost:4000/creategroup`,
         groupDetails
       );
-      console.log(res);
+      const {createdBy:admin,groupId,groupName}=res.data.group
+      setGroups(prev=>[...prev,{admin,groupId,groupName}]);
     } catch (error) {
       console.log(error);
     }

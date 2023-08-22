@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "../styles/chatPage.module.css";
 import Modal from "./Modal";
+
 import { MultiSelect } from "react-multi-select-component";
 import io from "socket.io-client"; 
 
@@ -21,6 +22,7 @@ const GroupPage = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [options, setOptions] = useState([]);
   const [addMode, setAddMode] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null); 
 
   
 
@@ -81,7 +83,7 @@ const GroupPage = () => {
       const res = await axios.get(`http://localhost:4000/getGroupChats/${id}`);
       if (res.status === 200)
       {
-       
+        console.log(res.data);
         setMessages(res.data);
       }
     } catch (error) {
@@ -89,7 +91,10 @@ const GroupPage = () => {
     }
   };
 
-  // Sending message handler
+
+
+
+   // Sending message handler
   const sendMsgFormHandler = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -109,6 +114,7 @@ const GroupPage = () => {
 
             // Emit the new message to the server using Socket.io
               socket.emit("newMessage", { id, userName, message });
+              setSelectedFile(null);
              setInput("");
           
         }
@@ -214,6 +220,13 @@ const GroupPage = () => {
     setGroupId(groupId);
   };
 
+
+
+  // file upload function
+  const handleFileSelect =(e)=>{
+    console.log(e.target.files[0])
+  }
+
   return (
     <>
       <center>
@@ -262,12 +275,20 @@ const GroupPage = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
           ></input>
+
+          <input type="file"
+           accept="image/*, video/*, audio/*"
+           onChange={handleFileSelect}
+           id="fileInput"
+          >
+          
+          </input>
           <button>Send</button>
         </form>
       </div>
       <Modal isOpen={openModal} onClose={closeModal}>
         <div className="modal">
-          <form onSubmit={formHandler}>
+          <form onSubmit={formHandler} encType="multipart/form-data">
             <div className="input-group">
               <label htmlFor="groupName">Group Name:</label>
               <input

@@ -40,14 +40,11 @@ const ChatWindow = () => {
       <GroupsBar/>
       <div className={Styles.chatContainer}>
         <h2>Chat App</h2>
-        {messages.length > 0 &&
-          messages.map((obj) => {
-            return (
-              <p key={obj.id}>
-                {obj.userName} : {obj.message}
-              </p>
-            );
-          })}
+       <p>Sachin : Hello Folks</p>
+       <p>Rohit : Hello Sir</p>
+       <p>Virat : Hello Paaji</p>
+       <p>Pavan : HII Sir</p>
+       <p>Sachin : How Are you guys doing</p>
         <div className={Styles.message}>
           <input
             placeholder="type here"

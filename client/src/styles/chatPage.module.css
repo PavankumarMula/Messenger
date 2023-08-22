@@ -37,7 +37,7 @@
   }
 
 .message input {
-    flex: 1;
+   
     padding: 10px;
     margin-right: 10px;
     border: none;
@@ -50,8 +50,11 @@
   }
 
   .message form {
-    width: 80%;
+    width: 100%;
+    display: flex;
   }
+
+  
   
   .message button {
     padding: 8px 12px;
