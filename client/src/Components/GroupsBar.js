@@ -6,6 +6,8 @@ import { MultiSelect } from "react-multi-select-component";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+
 const GroupsBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [groupName, setGroupName] = useState("");
@@ -42,7 +44,7 @@ const GroupsBar = () => {
             headers: { Authorization: token },
           });
           if (res.status === 200) {
-            console.log(res.data)
+            
             setGroups(res.data);
           }
         } catch (error) {
@@ -52,6 +54,9 @@ const GroupsBar = () => {
       fetchGroups();
     }
   }, []);
+
+  
+
 
   const openModal = () => {
     setModalOpen(true);
@@ -71,8 +76,10 @@ const GroupsBar = () => {
         `http://localhost:4000/creategroup`,
         groupDetails
       );
+      console.log(res.data)
       const {createdBy:admin,groupId,groupName}=res.data.group
       setGroups(prev=>[...prev,{admin,groupId,groupName}]);
+     
     } catch (error) {
       console.log(error);
     }

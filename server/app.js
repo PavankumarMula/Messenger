@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
     
       // Emit the message to the client
       socket.broadcast.emit("messageReceived", { id, userName, message });
-            console.log({id,userName});
+           
     
   });
 
